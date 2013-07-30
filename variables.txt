@@ -1,0 +1,124 @@
+This file contains all the variables needed for ATAC.
+The first word of a line must be the variable name (cannot rename), followed by a single space, followed by the value.
+Comments can be placed anywhere, so long as the first word in the line is not a variable name.
+~Zac Bullard 7/29/13
+
+***GENERAL EXECUTION HANDLING VARIABLES***
+
+masterBatchName Testing
+ 
+numberOfRuns 200000000
+relaxationSteps 5
+acceptAnyMutation 0
+haveNonInteracting 0
+relaxOnFailure 0
+relaxationMethod 1
+isRestart 0
+
+***MUTATION VARIABLES***
+
+mutationGo 1   Value of 0 just relaxes the structure, 1 activates no-mass-flux mutation.
+
+ratioRotate 0.999
+ratioDimerDisplacement 0.0
+ratioSp2ToSp3 0.001
+
+noFluxRatioShift 1   Value of 0 keeps ratios constant throughout entire run. Ratio of 1 will linearly decrease the sp2 to sp3 ratio, and raise the rotation ratio by the same amount, to the specified final values, when a run is accepted.
+
+ratioShiftRate 0.00001
+ratioRotateFinal 1
+ratioSp2ToSp3Final 0
+
+rotationsPerRun 1   If a rotation mutaion is taken, this int indicates how many rotations are taken before checking for energy. For accelerating the simulation.
+
+***TEMPERATURE VARIABLES***
+
+tempS 1250    starting temperature, in kelvin.
+tempF 500    finishing/asymptotic temperature, in kelvin.
+coolMethod 0    cooling method: 0 is none (starting temp does not change), 1 is linear, 2 is Newtonian.
+coolR 2.5    cooling rate constant in K/run for linear and K for Newtonian.
+
+***PERIODICITY VARIABLES***
+
+periodicityNum 0    Value is the number of dimentions the system is perodic in: 0 for none, 1 for along X, 2 for along X, Y. (3 not yet implimented.)
+
+periodicOnlyOnNonInteracting 0   Inconsequential if periodicityNum == 0.
+isStaticPeriod 0   0 for lattice parameter based on given system, 1 for a set given value.
+xPeriodFactor 1.228024   Handy value to remember: for graphene as VMD makes it, should be 1.228024 (armchair).
+yPeriodFactor 1.42   Handy value to remember: for graphene as VMD makes it, should be 1.418 (C-C bond length).
+      These period factors are context dependent. With a static period, these factors will be the lattice parameters. 
+      Without a static period, these factors will be added to the difference of atomic position axis extremes 
+      for the lattice parameters.
+zPeriodFactor 1000
+LVec11 0
+LVec12 0
+LVec13 0
+LVec21 0
+LVec22 0
+LVec23 0
+LVec31 0
+LVec32 0
+LVec33 0
+periodicStretching 0   This variable determines how the system's periodicity changes over time. 0 is no change, 1 is change along the x, 2 is change along x and y.
+periodicStretchRate 1   This rate constant will increase the periodicity of the system by an angstrom amount, after a successful run.
+
+***NAMD FORCE VARIABLES***
+
+forceNum 0   Value of 0 has no force, 1 is an x-aligned tube with end-walls. force in kcal/mol*A
+
+minWallPosModifier 0 This modifier is added to the position of the minimum-most atom position, to determine the wall position.
+maxWallPosModifier 0 This modifier is added to the position of the maximum-most atom position, to determine the wall position.
+wallForce 1.5
+tubeRadius 8
+tubeForceBase 7
+tubeForceExponent 8
+
+***BEAM VARIABLES***
+
+haveBeam 0 
+beamType 1 
+beamTemperature 2500
+beamRadius 10
+beamAxis 3 
+beamAxisIntercept1 0
+beamAxisIntercept2 0
+beamRadiusGrowthRate 0
+
+***CHIRALITY VARIABLES (x algned nanotubes only)***
+
+findChiralAngles 0   These occur on the final run, does not depend on other variables.
+findChiralIndexesBasedOnAngles 0
+findChiralIndexesBasedOnDiameter 0
+minChiralIndex 1   minChiralIndex cannot be 0, 0 indexes will be automatically accounted for
+maxChiralIndex 12
+useAveragedVectors 0
+vecRoundingErrorCutOff 0.2   in angstroms, only important if useAveragedVectors is 1
+findChiralSpread 0  We collect a group of chiral angles that a ring can possibly be.
+maxChiralAngleDifference 0.3  this is how close the theoretical angle should be to the experimental values, in degrees. findChiralSpread must be 1
+findRingSizes 0  This occurs on all runs
+generateRingHistogramImages 0   This occurs on all runs. findRingSizes must be true.
+ringSizeMin 3
+ringSizeMax 9
+
+***ELECTRODE VARIABLES***
+
+numberOfElectrodes 4
+
+xpElecWallMod -3.9 //positive x electrode wall modifier (how they are selected). should be negative
+xnElecWallMod 3.9 // should be positive
+ypElecWallMod -3.9 // should be negative
+ynElecWallMod 3.9 // should be positive
+
+***SP2/SP3 TRANSITION VARIABLES***
+
+sp2tosp3Tolerance 4.0
+spDenialPathSize 6   must be 2 or less for reverse reaction...
+reversableSpRunNum -1   Number of GLOBAL runs (not successful runs) before we change spDenialPathSize to 2. A value of -1 will always keep the path size as 4.
+superfluousSp3Sp2 0
+
+***MISC. VARIABLES***
+
+bondDistanceToleranceMax 1.9
+bondDistanceToleranceMin 1.0
+proteinDataBaseFile par_all27_prot_lipid.inp
+numProcessors 1
